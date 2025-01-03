@@ -20,5 +20,5 @@ jobs:
         uses: peter-evans/auto-merge@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          merge_label: "automerge"  # Only merges PRs with the 'automerge' label
+          merge_label: "chore"  # Only merges PRs with the 'automerge' label
           merge_method: merge
