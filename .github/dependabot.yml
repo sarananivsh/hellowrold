@@ -2,5 +2,11 @@ version: 2
 updates:
   - package-ecosystem: "maven"
     directory: "/"  # Path to your pom.xml file
+
+    # Check the npm registry every week on Tuesday at 02:00 Japan Standard Time (UTC +09:00)
     schedule:
-      interval: "daily"  # Change to your preference
+      interval: "weekly"
+      day: "friday"
+      time: "13:00"
+      timezone: "Asia/Tokyo"
+
