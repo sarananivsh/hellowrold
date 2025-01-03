@@ -1,7 +1,6 @@
 version: 2
 updates:
   - package-ecosystem: "maven"
-    versioning-strategy: "auto"
     directory: "/"  # Path to your pom.xml file
     schedule:
       interval: "daily"  # Change to your preference
