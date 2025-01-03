@@ -1,1 +1,24 @@
+name: Auto Merge PR with 'automerge' Label
 
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Auto Merge PR if 'chore' label is present
+        uses: peter-evans/auto-merge@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          merge_label: "automerge"  # Only merges PRs with the 'automerge' label
+          merge_method: merge
