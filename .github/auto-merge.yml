@@ -1,4 +1,4 @@
-name: Auto Merge PR with 'automerge' Label
+name: Auto Merge PR with 'dependencies' Label
 
 on:
   pull_request:
@@ -16,9 +16,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Auto Merge PR if 'chore' label is present
+      - name: Auto Merge PR if 'dependencies' label is present
         uses: peter-evans/auto-merge@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          merge_label: "chore"  # Only merges PRs with the 'automerge' label
+          merge_label: "dependencies"  # Only merges PRs with the 'automerge' label
           merge_method: merge
