@@ -1,12 +1,11 @@
-name: Auto Merge PR with 'dependencies' Label
+name: Auto Merge
 
 on:
   pull_request:
-    branches:
-      - main
     types:
       - opened
       - synchronize
+      - reopened
 
 jobs:
   auto-merge:
@@ -16,9 +15,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Auto Merge PR if 'dependencies' label is present
+      - name: Auto-merge PR if it meets conditions
         uses: peter-evans/auto-merge@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          merge_label: "dependencies"  # Only merges PRs with the 'automerge' label
-          merge_method: merge
+          merge_method: merge  # Options are 'merge', 'squash', or 'rebase'
