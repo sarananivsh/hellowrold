@@ -8,7 +8,7 @@ updates:
       interval: "daily"              # Frequency of checking for dependency updates (options: "daily", "weekly", "monthly")
     commit-message:
       prefix: "chore"                 # Prefix for commit messages (e.g., "chore", "fix")
-    open-pull-requests-limit: 15       # Limit the number of open PRs Dependabot can create
+    open-pull-requests-limit: 10      # Limit the number of open PRs Dependabot can create
 
     # Optionally specify versioning policies
     # Optional: Ignore certain dependencies or versions
