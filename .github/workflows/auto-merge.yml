@@ -5,7 +5,7 @@ on:
     types:
       - labeled
     branches:
-      - main
+      - main  # Ensure this matches the branch your PR targets
 
 jobs:
   auto-merge:
@@ -20,16 +20,29 @@ jobs:
         with:
           script: |
             const pr = context.payload.pull_request;
+
+            // Log the PR details for debugging
+            console.log('PR details:', pr);
+            console.log('PR mergeable state:', pr.mergeable_state);
+            console.log('PR draft status:', pr.draft);
+
+            // Check if PR has 'dependencies' label and is mergeable
             if (pr.labels.some(label => label.name === 'dependencies') && pr.mergeable_state === 'clean' && !pr.draft) {
               console.log('PR is labeled with "dependencies" and is mergeable. Proceeding with auto-merge.');
-              return true;
+
+              // Use the github context directly to merge the PR
+              try {
+                const mergeResponse = await github.rest.pulls.merge({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pr.number,
+                  commit_title: `Auto-merge PR #${pr.number}`,
+                  merge_method: 'merge',  // You can use 'squash' or 'rebase' if preferred
+                });
+                console.log('PR merged successfully:', mergeResponse);
+              } catch (error) {
+                console.error('Error merging PR:', error);
+              }
             } else {
               console.log('PR is not labeled with "dependencies" or is not mergeable.');
-              return false;
             }
-
-      - name: Auto merge PR if eligible
-        if: ${{ steps.check.outputs.result == 'true' }}
-        uses: peter-evans/auto-merge@v2
-        with:
-          merge-method: merge  # Use 'squash' or 'rebase' if preferred
